@@ -1,0 +1,175 @@
+unit Megalan;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, DBAccess, Uni, UniProvider,
+  MySQLUniProvider, Vcl.StdCtrls, MemDS, Vcl.Grids, Vcl.ComCtrls, CreateEdtiForm, DataModule, CreatePlayerForm;
+
+// procedure showUsers();
+type
+  TForm2 = class(TForm)
+    Memo1: TMemo;
+    Teams: TLabel;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    StringGrid1: TStringGrid;
+    Players: TLabel;
+    StringGrid2: TStringGrid;
+    Button5: TButton;
+    Button1: TButton;
+    procedure OnFormCreate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure showUsers();
+    procedure showPlayers();
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    // procedure addInMemo(input: string);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+  MyDataModule: TDataModule2;
+  EditForm: TForm;
+  uniConnection: TUniConnection;
+  CreatePlayerForm: TForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+  showUsers();
+  showPlayers();
+end;
+
+procedure TForm2.Button2Click(Sender: TObject);
+begin
+  EditForm:= TForm3.Create(self, true, uniConnection);
+  EditForm.ShowModal();
+  Memo1.Lines.Add('I will edit team !');
+end;
+
+procedure TForm2.Button3Click(Sender: TObject);
+var
+  row: Integer;
+  name: string;
+  website: string;
+  foundedOn: string;
+begin
+  row:= StringGrid1.Row;
+  name:= StringGrid1.Cells[0, row];
+  website:= StringGrid1.Cells[1, row];
+  foundedOn:= StringGrid1.Cells[2, row];
+  EditForm:= TForm3.Create(self, false, uniConnection, name, website, foundedOn);
+  EditForm.ShowModal();
+end;
+
+procedure TForm2.Button4Click(Sender: TObject);
+var
+  row: Integer;
+  name: string;
+  team: TTeam;
+begin
+  row:= StringGrid1.Row;
+  name:= StringGrid1.Cells[0, row];
+  team:= createTeamObject(name, '', '');
+  team.deleteFromDb(uniConnection);
+  Memo1.Lines.Add('I deleted a team !');
+end;
+
+procedure TForm2.Button5Click(Sender: TObject);
+begin
+  CreatePlayerForm:= TForm5.Create(self, uniConnection);
+  CreatePlayerForm.ShowModal();
+end;
+
+procedure TForm2.OnFormCreate(Sender: TObject);
+begin
+  StringGrid1.ColCount := 3;
+  StringGrid1.RowCount := 15;
+
+  StringGrid1.Cells[0,0] := 'Name';
+  StringGrid1.Cells[1,0] := 'Website';
+  StringGrid1.Cells[2,0] := 'Founded on';
+  StringGrid1.Options := StringGrid1.Options + [goRowSelect];
+
+  StringGrid2.ColCount := 4;
+  StringGrid2.RowCount := 15;
+  StringGrid2.Cells[0, 0] := 'Name';
+  StringGrid2.Cells[1, 0] := 'Last name';
+  StringGrid2.Cells[2, 0] := 'Team ID';
+  StringGrid2.Cells[3, 0] := 'Country';
+  uniConnection:= MyDataModule.SetupConnectionToDatabase();
+  Memo1.Lines.Add('Connection to database is ready !');
+end;
+
+procedure TForm2.showPlayers;
+var
+  allPlayers: TUniQuery;
+  playerFirstName: string;
+  playerLastName: string;
+  playerTeam: string;
+  playerCountry: string;
+  counter: Integer;
+begin
+  counter:= 1;
+  try
+    allPlayers:= DataModule.loadFromDb(uniConnection, true);
+    while not allPlayers.Eof do
+    begin
+      playerFirstName:= allPlayers.FieldByName('firstName').AsString;
+      playerLastName:= allPlayers.FieldByName('lastName').AsString;
+      playerTeam:= allPlayers.FieldByName('country').AsString;
+      playerCountry:= allPlayers.FieldByName('teamName').AsString;
+      StringGrid2.Cells[0, counter] := playerFirstName;
+      StringGrid2.Cells[1, counter] := playerLastName;
+      StringGrid2.Cells[2, counter] := playerTeam;
+      StringGrid2.Cells[3, counter] := playerCountry;
+      allPlayers.Next;
+      counter:= counter + 1;
+    end;
+  finally
+    allPlayers.Free;
+  end;
+end;
+
+procedure TForm2.showUsers();
+var
+  allTeams: TUniQuery;
+  teamName: string;
+  teamWebsite: string;
+  teamFoundedOn: string;
+  counter: Integer;
+begin
+  counter:= 1;
+  try
+    allTeams:= DataModule.loadFromDb(uniConnection, false);
+    while not allTeams.Eof do
+    begin
+      teamName:= allTeams.FieldByName('name').AsString;
+      teamWebsite:= allTeams.FieldByName('website').AsString;
+      teamFoundedOn:= allTeams.FieldByName('foundedOn').AsString;
+      StringGrid1.Cells[0, counter] := teamName;
+      StringGrid1.Cells[1, counter] := teamWebsite;
+      StringGrid1.Cells[2, counter] := teamFoundedOn;
+      allTeams.Next;
+      counter:= counter + 1;
+    end;
+  finally
+    allTeams.Free;
+  end;
+  Memo1.Lines.Add('All teams are shown !');
+  //allTeams:= DataModule.loadFromDb(uniConnection);
+end;
+
+end.

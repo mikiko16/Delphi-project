@@ -1,0 +1,93 @@
+unit CreateEdtiForm;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, DataModule, Uni;
+
+procedure prepareEditForm(name: string; website: string; foundedOn: string);
+type
+  TForm3 = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Button1: TButton;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+    isCreateForm: boolean;
+  public
+    { Public declarations }
+    constructor Create(AOwner: TComponent;
+        const isCreate: boolean = false; uniConn: TUniConnection = nil; name: string = '';
+        website: string = ''; foundedOn: string = '');
+  end;
+
+var
+  Form3: TForm3;
+  MyDataModule: TDataModule2;
+  FEdit1: TEdit;
+  FEdit2: TEdit;
+  FEdit3: TEdit;
+  FButton: TButton;
+  uniConnection: TUniConnection;
+
+implementation
+
+{$R *.dfm}
+constructor TForm3.Create(AOwner: TComponent; const isCreate: boolean = false; uniConn: TUniConnection = nil; name: string = ''; website: string = ''; foundedOn: string = '');
+begin
+  inherited Create(AOwner);
+  isCreateForm:= isCreate;
+  FEdit1:= Edit1;
+  FEdit2:= Edit2;
+  FEdit3:= Edit3;
+  FButton:= Button1;
+  uniConnection:= uniConn;
+
+  if isCreateForm then
+    begin
+      Button1.Caption:= 'Create';
+    end
+  else
+    begin
+      prepareEditForm(name, website, foundedOn);
+    end;
+end;
+
+procedure prepareEditForm(name: string; website: string; foundedOn: string);
+begin
+    FButton.Caption:= 'Edit';
+    FEdit1.Text:= name;
+    FEdit2.Text:= website;
+    FEdit3.Text:= foundedOn;
+end;
+
+procedure TForm3.Button1Click(Sender: TObject);
+var
+  name: string;
+  website: string;
+  foundedOn: string;
+  Team: TTeam;
+begin
+  name:= Edit1.Text;
+  website:= Edit2.Text;
+  foundedOn:= Edit3.Text;
+
+  if isCreateForm then
+    begin
+      Team := TTeam.Create(name, website, foundedOn);
+      Team.saveToDb(uniConnection);
+    end
+  else
+    begin
+      Team := TTeam.Create(name, website, foundedOn);
+      Team.updateToDb(uniConnection);
+    end;
+end;
+
+end.

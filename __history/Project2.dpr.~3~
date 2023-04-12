@@ -1,0 +1,16 @@
+program Project2;
+
+uses
+  Vcl.Forms,
+  Megalan in 'Megalan.pas' {Form2},
+  Unit2 in 'Unit2.pas' {DataModule2: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TDataModule2, DataModule2);
+  Application.Run;
+end.

@@ -1,0 +1,47 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, MemDS, DBAccess, Uni,
+  Vcl.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    UniConnection1: TUniConnection;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure ConnectToDatabase(Sender: TObject);
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  MessageDlg('Miro is the best !!!!', mtError, [mbOk], 0)
+end;
+
+procedure TForm1.ConnectToDatabase(Sender: TObject);
+begin
+  UniConnection1 := TUniConnection.Create(nil);
+  UniConnection1.ProviderName := 'MySQL';
+  UniConnection1.Server := 'localhost';
+  UniConnection1.Port := 3306;
+  UniConnection1.Username := 'miro';
+  UniConnection1.Password := 'MiroDran8905!';
+  UniConnection1.Database := 'your_database';
+  UniConnection1.Connect;
+end;
+
+end.
+

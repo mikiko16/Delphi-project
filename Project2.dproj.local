@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/04/01 18:55:18.000.058,=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/04/01 22:03:09.000.112,=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/04/01 23:05:00.000.870,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Megalan.pas</Transaction>
+    <Transaction>2023/04/01 23:05:00.000.870,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Megalan.dfm</Transaction>
+    <Transaction>2023/04/01 23:05:15.000.389,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>2023/04/02 20:39:53.000.950,=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\TABPGDLG.pas</Transaction>
+    <Transaction>2023/04/03 21:27:25.000.721,=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/04/04 19:55:02.000.933,=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2023/04/04 20:39:27.000.659,=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit4.pas</Transaction>
+    <Transaction>2023/04/09 09:44:33.000.721,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit4.pas=</Transaction>
+    <Transaction>2023/04/09 11:07:23.000.122,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit2.dfm=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\DataModule.dfm</Transaction>
+    <Transaction>2023/04/09 11:07:23.000.122,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\DataModule.pas</Transaction>
+    <Transaction>2023/04/09 11:07:36.000.616,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit3.pas=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\CreateEdtiForm.pas</Transaction>
+    <Transaction>2023/04/09 11:07:36.000.617,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit3.dfm=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\CreateEdtiForm.dfm</Transaction>
+    <Transaction>2023/04/10 20:13:11.000.101,=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2023/04/10 20:13:27.000.668,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\CreatePlayerForm.pas=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2023/04/10 20:13:27.000.668,C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\CreatePlayerForm.dfm=C:\Users\miroslav.dranchovski\Documents\Embarcadero\Studio\Projects\Unit5.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

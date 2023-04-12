@@ -1,0 +1,69 @@
+unit Unit4;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Megalan;
+
+procedure WriteToMemo1(text: string);
+type
+  TForm4 = class(TForm)
+    Label1: TLabel;
+    Edit1: TEdit;
+    Label2: TLabel;
+    Edit2: TEdit;
+    Label3: TLabel;
+    Edit3: TEdit;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+    username2: string;
+  public
+    { Public declarations }
+    // username: string;
+    constructor Create(AOwner: TComponent;
+        const isCreate: boolean);
+  end;
+
+var
+  Form4: TForm4;
+  isCreateForm: boolean;
+
+implementation
+
+{$R *.dfm}
+
+constructor TForm4.Create(AOwner: TComponent; const isCreate: boolean);
+begin
+  inherited Create(AOwner);
+  isCreateForm:= isCreate;
+  if isCreateForm then
+    begin
+        Button1.Caption:= 'Create';
+    end
+  else
+    begin
+        Button1.Caption:= 'Edit';
+    end;
+end;
+
+procedure WriteToMemo1(text: string);
+begin
+  TForm2.Memo1.Lines.Add(text);
+end;
+
+procedure TForm4.Button1Click(Sender: TObject);
+var
+  name: string;
+  website: string;
+  foundedOn: string;
+begin
+  Edit1.Text := username2;
+  website:= Edit2.Text;
+  foundedOn:= Edit3.Text;
+  MessageDlg(username2, mtError, [mbOk], 0);
+end;
+
+end.

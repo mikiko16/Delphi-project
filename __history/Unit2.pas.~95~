@@ -1,0 +1,104 @@
+unit Unit2;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, MemDS, DBAccess, Uni, UniProvider,
+  MySQLUniProvider , Megalan, Vcl.Forms;
+
+type
+  TForm2 = class(TForm);
+  TTeam = class
+    private
+      teamName: string;
+      teamWebsite: string;
+      teamFoundedOn: string;
+    public
+      constructor Create(const name: string; website: string; foundedOn: string);
+      procedure saveToDb(connection: TUniConnection);
+      procedure loadFromDb(connection: TUniConnection);
+      // procedure deleteFromDb;
+    end;
+  TDataModule2 = class(TDataModule)
+    UniConnection1: TUniConnection;
+    MySQLUniProvider1: TMySQLUniProvider;
+    UniQuery1: TUniQuery;
+    function SetupConnectionToDatabase: TUniConnection;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DataModule2: TDataModule2;
+
+implementation
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+constructor TTeam.Create(const name: string; website: string; foundedOn: string);
+begin
+  teamName:= name;
+  teamWebsite:= website;
+  teamFoundedOn:= foundedOn;
+end;
+
+procedure TTeam.saveToDb(connection: TUniConnection);
+var
+  Query: TUniQuery;
+  uniConnection: TUniConnection;
+  SQL: string;
+begin
+  try
+    Query := TUniQuery.Create(nil);
+    Query.Connection := connection;
+    SQL:= 'insert into teams (name, website, foundedOn) values (:name, :website, :foundedOn)';
+    Query.SQL.Text := SQL;
+    Query.ParamByName('name').AsString := teamName;
+    Query.ParamByName('website').AsString := teamWebsite;
+    Query.ParamByName('foundedOn').AsString := teamFoundedOn;
+    Query.Execute();
+    // Memo1.Lines.Add(FieldValue);
+  finally
+    connection.Free;
+  end;
+end;
+
+procedure TTeam.loadFromDb(connection: TUniConnection);
+var
+  Query: TUniQuery;
+  uniConnection: TUniConnection;
+  SQL: string;
+begin
+  try
+    Query := TUniQuery.Create(nil);
+    Query.Connection := connection;
+    SQL:= 'select * from teams';
+    Query.SQL.Text := SQL;
+    Query.Open();
+    while not Query.Eof do
+    begin
+      // WriteToMemo1(Query.FieldByName('name').AsString);
+      showUsers();
+      Query.Next;
+    end;
+  finally
+    connection.Free;
+  end;
+end;
+
+function TDataModule2.SetupConnectionToDatabase: TUniConnection;
+begin
+  Result := TUniConnection.Create(nil);
+  Result.ProviderName := 'MySQL';
+  Result.Server := 'localhost';
+  Result.Username := 'miro';
+  Result.Password := 'MiroDran8905!';
+  Result.Port := 3306;
+  Result.Database := 'my_scheme';
+  Result.Connect();
+  Result.Open;
+end;
+end.
